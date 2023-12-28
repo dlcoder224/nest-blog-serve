@@ -2,8 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+import * as mongoose from 'mongoose';
+import { ValidationPipe } from '@nestjs/common';
+
 async function bootstrap() {
+  mongoose.connect('mongodb://localhost/nest-blog-serve');
+
   const app = await NestFactory.create(AppModule);
+
+  // 全局管道 全局验证
+  app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
     .setTitle('NestJS博客API描述')

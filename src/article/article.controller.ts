@@ -8,26 +8,38 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ArticleModule } from './article.module';
+import { IsNotEmpty } from 'class-validator';
 
 class CreateArticleDto {
-  @ApiProperty({ description: '文章标题' })
+  @ApiProperty({ description: '文章标题', example: '文章标题1' })
+  @IsNotEmpty({ message: '请填写标题' })
   title: string;
-  @ApiProperty({ description: '文章内容' })
+  @ApiProperty({ description: '文章内容', example: '文章内容1' })
   content: string;
 }
 
 @Controller('article')
 @ApiTags('文章模块')
 export class ArticleController {
+  @Get('/getArticleList')
+  @ApiOperation({
+    summary: '文章列表',
+  })
+  async getArticleList() {
+    return await ArticleModule.find();
+  }
+
   @Post('/createArticle')
   @ApiOperation({
     summary: '创建文章',
   })
-  createArticle(@Body() body: CreateArticleDto) {
-    console.log(body, 'body');
+  async createArticle(@Body() createArticleDto: CreateArticleDto) {
+    console.log(createArticleDto, 'body');
+    await ArticleModule.create(createArticleDto);
     return {
       success: true,
-      data: body,
+      data: createArticleDto,
     };
   }
 
@@ -35,23 +47,22 @@ export class ArticleController {
   @ApiOperation({
     summary: '文章详情',
   })
-  getArticleDetail(@Param('id') id: string | number) {
-    return {
-      id,
-    };
+  async getArticleDetail(@Param('id') id: string | number) {
+    return await ArticleModule.findById(id);
   }
 
   @Put('/updateArticle/:id')
   @ApiOperation({
-    summary: '编辑文章',
+    summary: '编辑更新文章',
   })
-  updateArticle(
+  async updateArticle(
     @Param('id') id: string | number,
-    @Body() body: CreateArticleDto,
+    @Body() updateArticleDto: CreateArticleDto,
   ) {
+    await ArticleModule.findByIdAndUpdate(id, updateArticleDto);
     return {
       id,
-      data: body,
+      data: updateArticleDto,
     };
   }
 
@@ -59,7 +70,8 @@ export class ArticleController {
   @ApiOperation({
     summary: '删除文章',
   })
-  deleteArticle(@Param('id') id: string | number) {
+  async deleteArticle(@Param('id') id: string | number) {
+    await ArticleModule.findByIdAndDelete(id);
     return {
       id,
     };
