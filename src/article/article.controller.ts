@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { ArticleModule } from './article.module';
+import { ArticleModel } from './article.model';
 import { IsNotEmpty } from 'class-validator';
 
 class CreateArticleDto {
@@ -27,7 +27,7 @@ export class ArticleController {
     summary: '文章列表',
   })
   async getArticleList() {
-    return await ArticleModule.find();
+    return await ArticleModel.find();
   }
 
   @Post('/createArticle')
@@ -35,12 +35,8 @@ export class ArticleController {
     summary: '创建文章',
   })
   async createArticle(@Body() createArticleDto: CreateArticleDto) {
-    console.log(createArticleDto, 'body');
-    await ArticleModule.create(createArticleDto);
-    return {
-      success: true,
-      data: createArticleDto,
-    };
+    await ArticleModel.create(createArticleDto);
+    return {};
   }
 
   @Get('/getArticleDetail/:id')
@@ -48,7 +44,7 @@ export class ArticleController {
     summary: '文章详情',
   })
   async getArticleDetail(@Param('id') id: string | number) {
-    return await ArticleModule.findById(id);
+    return await ArticleModel.findById(id);
   }
 
   @Put('/updateArticle/:id')
@@ -59,7 +55,7 @@ export class ArticleController {
     @Param('id') id: string | number,
     @Body() updateArticleDto: CreateArticleDto,
   ) {
-    await ArticleModule.findByIdAndUpdate(id, updateArticleDto);
+    await ArticleModel.findByIdAndUpdate(id, updateArticleDto);
     return {
       id,
       data: updateArticleDto,
@@ -71,7 +67,7 @@ export class ArticleController {
     summary: '删除文章',
   })
   async deleteArticle(@Param('id') id: string | number) {
-    await ArticleModule.findByIdAndDelete(id);
+    await ArticleModel.findByIdAndDelete(id);
     return {
       id,
     };
