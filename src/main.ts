@@ -6,6 +6,7 @@ import * as mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
 
 import { Response } from './common/response';
+import { HttpFilter } from './common/filter';
 
 async function bootstrap() {
   mongoose
@@ -21,7 +22,10 @@ async function bootstrap() {
 
   // 全局管道 全局验证
   app.useGlobalPipes(new ValidationPipe());
+  // 全局响应拦截器，返回给前端数据格式
   app.useGlobalInterceptors(new Response());
+  // 后端全局异常拦截器
+  app.useGlobalFilters(new HttpFilter());
 
   const config = new DocumentBuilder()
     .setTitle('NestJS博客API描述')

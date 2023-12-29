@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { ArticleModel } from './article.model';
+import { ArticleModel } from './dto/article.dto';
 import { IsNotEmpty } from 'class-validator';
 
 class CreateArticleDto {
