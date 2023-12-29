@@ -2,21 +2,21 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-import * as mongoose from 'mongoose';
+// import * as mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
 
 import { Response } from './common/response';
 import { HttpFilter } from './common/filter';
 
 async function bootstrap() {
-  mongoose
-    .connect('mongodb://127.0.0.1:27017/', { dbName: 'nest-blog-serve' })
-    .then(() => {
-      console.log('数据里连接成功');
-    })
-    .catch((err) => {
-      console.log(err, '数据里连接失败');
-    });
+  // mongoose
+  //   .connect('mongodb://127.0.0.1:27017/', { dbName: 'nest-blog-serve' })
+  //   .then(() => {
+  //     console.log('数据里连接成功');
+  //   })
+  //   .catch((err) => {
+  //     console.log(err, '数据里连接失败');
+  //   });
 
   const app = await NestFactory.create(AppModule);
 
