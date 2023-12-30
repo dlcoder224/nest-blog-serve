@@ -4,6 +4,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AdminModule);
+  // 设置允许跨域
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('NestJS博客管理端API')
