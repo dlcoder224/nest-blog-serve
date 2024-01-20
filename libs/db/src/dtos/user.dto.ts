@@ -15,4 +15,8 @@ export class User {
   @prop()
   @ApiProperty({ description: '密码', example: '123456' })
   password: string;
+
+  @prop()
+  // 权限管理：1 -- 唯一超级管理员  2--多个管理员  3--多个用户
+  permission: number;
 }

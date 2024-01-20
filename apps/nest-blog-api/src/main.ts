@@ -5,8 +5,8 @@ import { AppModule } from './app.module';
 // import * as mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
 
-import { Response } from './common/response';
-import { HttpFilter } from './common/filter';
+import { Response } from '../../common/response';
+import { HttpFilter } from '../../common/filter';
 
 async function bootstrap() {
   // mongoose
@@ -28,8 +28,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpFilter());
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS博客API描述')
-    .setDescription('个人博客API')
+    .setTitle('绿色导航网页接口描述')
+    .setDescription('绿色导航网页API')
     .setVersion('1.0')
     // .addTag('cats')
     .build();
