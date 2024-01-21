@@ -10,7 +10,8 @@ import { HttpFilter } from './common/filter';
 
 async function bootstrap() {
   mongoose
-    .connect('mongodb://127.0.0.1:27017/', { dbName: 'nest-blog-serve' })
+    // .connect('mongodb://127.0.0.1:27017/', { dbName: 'nest-blog-serve' })
+    .connect('mongodb://101.201.47.18:27017/', { dbName: 'greenNavDB' })
     .then(() => {
       console.log('数据里连接成功');
     })
@@ -37,5 +38,6 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(3000);
+  console.log('api地址', 'http://localhost:3000/api-docs#/');
 }
 bootstrap();
