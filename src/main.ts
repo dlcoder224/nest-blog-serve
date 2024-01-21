@@ -1,12 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+// import { TypegooseModule } from 'nestjs-typegoose';
 
 import * as mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
 
 import { Response } from './common/response';
 import { HttpFilter } from './common/filter';
+
+// import { User } from './models/user.model';
+
+// const models = TypegooseModule.forFeature([User]);
 
 async function bootstrap() {
   mongoose
@@ -29,8 +34,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpFilter());
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS博客API描述')
-    .setDescription('个人博客API')
+    .setTitle('NestJS小绿导航API描述')
+    .setDescription('小绿导航API')
     .setVersion('1.0')
     // .addTag('cats')
     .build();
@@ -38,6 +43,6 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(3000);
-  console.log('api地址', 'http://localhost:3000/api-docs#/');
+  console.log('api地址：', 'http://localhost:3000/api-docs#/');
 }
 bootstrap();
